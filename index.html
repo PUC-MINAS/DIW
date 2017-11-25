@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD - Trabalho de Desenvolvimento de Interfaces Web</title>
+</head>
+<body>
+
+    <div class="div_form">
+        <form id="formFilme" action="javascript:execCreate(this.nome, this.email, this.cidade, this.estado, this.data_nascimento, this.imagem_url)">
+            <p>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome">
+            </p>
+            <p>
+                <label for="email">Emails</label>
+                <input type="email" id="email">
+            </p>
+            <p>
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade">
+            </p>
+            <p>
+                <label for="estado">Estado</label>
+                <input type="text" id="estado">
+            </p>
+            <p>
+                <label for="data_nascimento">Data de Nascimento</label>
+                <input type="date" id="data_nascimento">
+            </p>
+            <button onclick="execRetrieve();">Listagem</button>
+            <input type="submit" value="Inserir">
+            <input type="submit" value="Alterar">
+            <input type="submit" value="Excluir">
+        </form>
+    </div>
+
+    <div id="div_listagem">
+        
+            
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        const url_WS = 'http://www.smartsoft.com.br/webservice/restifydb/empresa/cliente';
+
+        // Função para executar o Retrieve do CRUD
+        function execRetrieve() {
+
+            $.ajax({
+                url: url_WS,
+                method: "GET",
+                success: function (dados) {
+                    var tabelaHTML = '';
+                    
+                    // Montagem da tabela HTML
+
+                    tabelaHTML = '<table class="table"><thead><tr><th>#</th><th>Nome</th><th>Email</th><th>Cidade</th><th>Estado</th><th>Data de Nascimento</th></tr></thead><tbody>';
+
+                    for (i = 0; i < dados.restify.rows.length; i++) {
+                        var id = dados.restify.rows[i].values.codigo.value;
+                        var nome = dados.restify.rows[i].values.nome.value;
+                        var email = dados.restify.rows[i].values.email.value;
+                        var cidade = dados.restify.rows[i].values.cidade.value;
+                        var estado = dados.restify.rows[i].values.estado.value;
+                        var data_nascimento = dados.restify.rows[i].values.data_nascimento.value;
+
+                        tabelaHTML += '<tr>';
+                        tabelaHTML += '<td>'+ id +'</td>';
+                        tabelaHTML += '<td>'+ nome +'</td>';
+                        tabelaHTML += '<td>'+ email +'</td>';
+                        tabelaHTML += '<td>'+ cidade +'</td>';
+                        tabelaHTML += '<td>'+ estado +'</td>';
+                        tabelaHTML += '<td>'+ data_nascimento +'</td>';
+                        tabelaHTML += '</tr>';
+                    }
+                    tabelaHTML += '</tbody></table>';
+
+                    // Inserção do código HTML na DIV
+                    $('#div_listagem').html(tabelaHTML);
+                }
+            });
+
+        }
+
+        // Função para executar o Delete do CRUD
+        function execDelete(id) {
+            // Confirma exclusão
+            if (confirm('Deseja realmente excluir o registro ' + id + '?')) {
+                $.ajax({
+                    url: url_WS + '/' + id,
+                    method: "DELETE",
+                    success: function () {
+                        alert('Registro exlcuído.');
+
+                        // Recarrega listagem
+                        execRetrieve();
+                    }
+                });
+            }
+        }
+
+        // Função para executar o Create do CRUD
+        function execCreate(titulo, categoria, diretor, ano, duracao, sinopse, imagem_url) {
+            $.ajax({
+                url: url_WS,
+                method: "POST",
+                contentType: 'application/x-www-form-urlencoded',
+                /*data: '_data={"titulo": "' + titulo.value + '", ' +
+                    '"diretor": "' + diretor.value + '", ' +
+                    '"ano": "' + ano.value + '", ' +
+                    '"duracao": "' + duracao.value + '", ' +
+                    '"sinopse": "' + sinopse.value + '", ' +
+                    '"imagem_url": "' + imagem_url.value + '"}',*/
+                success: function (dados) {
+                    alert('Registro incluído com sucesso.');
+
+                    // Recarrega listagem
+                    execRetrieve();
+                    document.getElementById('formFilme').reset();
+                }
+
+            });
+        }
+    </script>
+    
+</body>
+</html>
