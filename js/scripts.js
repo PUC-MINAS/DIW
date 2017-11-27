@@ -1,18 +1,5 @@
-const url_WS = 'http://www.smartsoft.com.br/webservice/restifydb/empresa/cliente';
+const url_WS = 'http://www.smartsoft.com.br/webservice/restifydb/empresa/puc_perfil';
 
-function op (x) {
-    switch(x) {
-        case 0:
-            execRetrieve();
-            break;
-        case 1:
-            execCreate();
-            break;
-        case 2:
-            execDelete();
-            break;
-    }
-}
 
 // Função para executar o Retrieve do CRUD
 function execRetrieve() {
@@ -22,25 +9,27 @@ function execRetrieve() {
         method: "GET",
         success: function (dados) {
             var tabelaHTML = '';
-
+            var id, nome, sexo, cidade, site, data_nascimento, img_url;
             // Montagem da tabela HTML
 
-            tabelaHTML = '<table class="table"><thead><tr><th>#</th><th>Nome</th><th>Email</th><th>Cidade</th><th>Estado</th><th>Data de Nascimento</th></tr></thead><tbody>';
+            tabelaHTML = '<table class="table"><thead><tr><th>#</th><th>Imagem</th></th><th>Nome</th><th>Sexo</th><th>Cidade</th><th>Site</th><th>Data de Nascimento</th></tr></thead><tbody>';
 
-            for (i = 0; i < dados.restify.rows.length; i++) {
-                var id = dados.restify.rows[i].values.codigo.value;
-                var nome = dados.restify.rows[i].values.nome.value;
-                var email = dados.restify.rows[i].values.email.value;
-                var cidade = dados.restify.rows[i].values.cidade.value;
-                var estado = dados.restify.rows[i].values.estado.value;
-                var data_nascimento = dados.restify.rows[i].values.data_nascimento.value;
+            for (var i = 0; i < dados.restify.rows.length; i++) {
+                id = dados.restify.rows[i].values.id.value;
+                nome = dados.restify.rows[i].values.nome.value;
+                sexo = dados.restify.rows[i].values.sexo.value;
+                cidade = dados.restify.rows[i].values.cidade.value;
+                site = dados.restify.rows[i].values.site_url.value;
+                data_nascimento = dados.restify.rows[i].values.data_nascimento.value;
+                img_url = dados.restify.rows[i].values.foto_url.value;
 
                 tabelaHTML += '<tr>';
                 tabelaHTML += '<td id="'+ id +'id">'+ id +'</td>';
+                tabelaHTML += '<td id="'+ id +'img"><img class="foto_perfil" src="'+ img_url +'"></td>'
                 tabelaHTML += '<td id="'+ id +'nome">'+ nome +'</td>';
-                tabelaHTML += '<td id="'+ id +'email">'+ email +'</td>';
+                tabelaHTML += '<td id="'+ id +'sexo">'+ sexo +'</td>';
                 tabelaHTML += '<td id="'+ id +'cidade">'+ cidade +'</td>';
-                tabelaHTML += '<td id="'+ id +'estado">'+ estado +'</td>';
+                tabelaHTML += '<td id="'+ id +'site"><a href="'+ site +'">Site</a></td>';
                 tabelaHTML += '<td id="'+ id +'data">'+ data_nascimento +'</td>';
                 tabelaHTML += '<td><button onclick="execUpdate('+ id +');">Alterar</button></td>';
                 tabelaHTML += '<td><button onclick="execDelete('+ id +');">Excluir</button></td>';
@@ -75,20 +64,22 @@ function execDelete(id) {
 // Função para executar o Create do CRUD
 function execCreate() {
     var nome = $('#nome').val();
-    var email = $('#email').val();
     var cidade = $('#cidade').val();
-    var estado = $('#estado').val();
+    var site_url = $('#site').val();
     var data_nascimento = $('#data_nascimento').val();
+    var img_url = $('#foto_url').val();
+    var sexo = $('input[name="sexo"]:checked').val();
     
     $.ajax({
         url: url_WS,
         method: "POST",
         contentType: 'application/x-www-form-urlencoded',
-        data: '_data={"nome": "' + nome + '", ' +
-            '"email": "' + email + '", ' +
+        data: '_data={"data_nascimento": "'+data_nascimento+'", ' +
+            '"nome": "' + nome + '", ' +
+            '"sexo": "' + sexo + '", ' +
             '"cidade": "' + cidade + '", ' +
-            '"estado": "' + estado + '", ' +
-            '"data_nascimento": "' + data_nascimento + '"}',
+            '"site_url": "' + site_url + '", ' +
+            '"foto_url": "' + img_url + '"}',
         success: function (dados) {
             alert('Registro incluído com sucesso.');
 
@@ -102,67 +93,69 @@ function execCreate() {
 
 function execUpdate(id){
     var nome= $('#'+ id +'nome')[0].innerHTML;
-    var email = $('#'+ id +'email')[0].innerHTML;
+    var sexo = $('#'+ id +'sexo')[0].innerHTML;
     var cidade = $('#'+ id +'cidade')[0].innerHTML;
-    var estado = $('#'+ id +'estado')[0].innerHTML;
+    var site = $('#'+ id +'site a')[0].href;
     var data_nascimento = $('#'+ id +'data')[0].innerHTML;
+    var img_url = $('#'+id+'img img')[0].src;
     var data = formatarData(data_nascimento);
     $('#id').val(id);
     $('#nome').val(nome);
-    $('#email').val(email);
     $('#cidade').val(cidade);
-    $('#estado').val(estado);
+    $('#site').val(site);
+    $('#foto_url').val(img_url);
     $('#data_nascimento').val(data);
 
     $('input#listagem').css("visibility","hidden");
     $('input#inserir').css("visibility","hidden");
     $('input#confirmar').css("visibility","visible");
+    $('input#cancel').css("visibility","visible");
 
 }
 
 function confirmUpdate(){
     var id = $('#id').val();
+    var nome = $('#nome').val();
+    var cidade = $('#cidade').val();
+    var site_url = $('#site').val();
+    var data_nascimento = $('#data_nascimento').val();
+    var img_url = $('#foto_url').val();
+    var sexo = $('input[name="sexo"]:checked').val();
     $.ajax({
         url: url_WS + '/' + id,
-        method: "DELETE",
+        method: "PUT",
+        contentType: 'application/x-www-form-urlencoded',
+        data: '_data={"data_nascimento": "'+data_nascimento+'", ' +
+        '"nome": "' + nome + '", ' +
+        '"sexo": "' + sexo + '", ' +
+        '"cidade": "' + cidade + '", ' +
+        '"site_url": "' + site_url + '", ' +
+        '"foto_url": "' + img_url + '"}',
         success: function () {
-
-            // Recarrega listagem
+            alert("Registro atualizado com sucesso!");
             execRetrieve();
             
         }
     });
-    //execCreate();
-    var nome = $('#nome').val();
-    var email = $('#email').val();
-    var cidade = $('#cidade').val();
-    var estado = $('#estado').val();
-    var data_nascimento = $('#data_nascimento').val();
-    $.ajax({
-        url: url_WS,
-        method: "POST",
-        contentType: 'application/x-www-form-urlencoded',
-        data: '_data={"nome": "' + nome + '", ' +
-            '"email": "' + email + '", ' +
-            '"cidade": "' + cidade + '", ' +
-            '"estado": "' + estado + '", ' +
-            '"data_nascimento": "' + data_nascimento + '"}',
-        success: function (dados) {
-            alert('Registro Atualizado.');
 
-            // Recarrega listagem
-            execRetrieve();
-            document.getElementById('cadastro').reset();
-        }
-
-    });
-
-
+    execRetrieve();
+    document.getElementById('cadastro').reset();
 
     $('input#listagem').css("visibility","visible");
     $('input#inserir').css("visibility","visible");
     $('input#confirmar').css("visibility","hidden");
+    $('input#cancel').css("visibility","hidden");
     
+}
+
+function cancelUpdate () {
+    execRetrieve();
+    document.getElementById('cadastro').reset();
+
+    $('input#listagem').css("visibility","visible");
+    $('input#inserir').css("visibility","visible");
+    $('input#confirmar').css("visibility","hidden");
+    $('input#cancel').css("visibility","hidden");
 }
 
 function formatarData(data) {
