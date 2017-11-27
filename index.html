@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRUD - Trabalho de Desenvolvimento de Interfaces Web</title>
     <style>
-        input#confirmar {
+        input#confirmar, input#cancel {
             visibility: hidden;
+        }
+        
+        .foto_perfil {
+            height: 40px;
         }
     </style>
 </head>
@@ -21,26 +25,33 @@
                 <input type="text" id="nome">
             </p>
             <p>
-                <label for="email">Email</label>
-                <input type="email" id="email">
+                <input type="radio" name="sexo" id="sexo" value="Masculino">
+                <label for="sexo">Masculino</label>
+                <input type="radio" name="sexo" id="sexo" value="Feminino">
+                <label for="sexo">Feminino</label>
             </p>
             <p>
                 <label for="cidade">Cidade</label>
                 <input type="text" id="cidade">
             </p>
             <p>
-                <label for="estado">Estado</label>
-                <input type="text" id="estado">
+                <label for="site">Site</label>
+                <input type="text" id="site">
             </p>
             <p>
                 <label for="data_nascimento">Data de Nascimento</label>
                 <input type="date" id="data_nascimento">
+            </p>
+            <p>
+                <label for="foto_url">Foto_url</label>
+                <input id="foto_url" type="text">
             </p>           
             
         </form>
         <input id="listagem" type="submit" onclick="javascript: execRetrieve();" value="Listagem">
         <input id="inserir" type="submit" onclick="execCreate();" value="Inserir">
         <input id="confirmar" type="submit" onclick="confirmUpdate();" value="Confirmar">
+        <input type="submit" id="cancel" onclick="cancelUpdate();" value="Cancelar">
         <!--<input type="submit" onclick="execDelete();" value="Excluir">-->
 
     </div>
