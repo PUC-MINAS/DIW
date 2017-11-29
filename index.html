@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRUD - Trabalho de Desenvolvimento de Interfaces Web</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
         input#confirmar, input#cancel {
             visibility: hidden;
@@ -16,42 +17,44 @@
     </style>
 </head>
 <body>
-
-    <div class="div_form">
-        <form id="cadastro">
-            <input type="text" id="id" hidden>
-            <p>
-                <label for="nome">Nome</label>
-                <input type="text" id="nome">
-            </p>
-            <p>
-                <input type="radio" name="sexo" id="sexo" value="Masculino">
-                <label for="sexo">Masculino</label>
-                <input type="radio" name="sexo" id="sexo" value="Feminino">
-                <label for="sexo">Feminino</label>
-            </p>
-            <p>
-                <label for="cidade">Cidade</label>
-                <input type="text" id="cidade">
-            </p>
-            <p>
-                <label for="site">Site</label>
-                <input type="text" id="site">
-            </p>
-            <p>
-                <label for="data_nascimento">Data de Nascimento</label>
-                <input type="date" id="data_nascimento">
-            </p>
-            <p>
-                <label for="foto_url">Foto_url</label>
-                <input id="foto_url" type="text">
-            </p>           
-            
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <form id="cadastro" class="form-horizontal">
+            <div class="form-group">
+                <input type="text" id="id" hidden>
+                <p>
+                    <label for="nome">Nome</label>
+                    <input class= "form-control" type="text" id="nome">
+                </p>
+                <p>
+                    <input type="radio" name="sexo" id="sexo" value="Masculino">
+                    <label for="sexo">Masculino</label>
+                    <input type="radio" name="sexo" id="sexo" value="Feminino">
+                    <label for="sexo">Feminino</label>
+                </p>
+                <p>
+                    <label for="cidade">Cidade</label>
+                    <input class= "form-control" type="text" id="cidade">
+                </p>
+                <p>
+                    <label for="site">Site</label>
+                    <input class= "form-control" type="text" id="site">
+                </p>
+                <p>
+                    <label for="data_nascimento">Data de Nascimento</label>
+                    <input class= "form-control" type="date" id="data_nascimento">
+                </p>
+                <p>
+                    <label for="foto_url">Foto_url</label>
+                    <input class= "form-control" id="foto_url" type="text">
+                </p>           
+            </div>
         </form>
-        <input id="listagem" type="submit" onclick="javascript: execRetrieve();" value="Listagem">
-        <input id="inserir" type="submit" onclick="execCreate();" value="Inserir">
-        <input id="confirmar" type="submit" onclick="confirmUpdate();" value="Confirmar">
-        <input type="submit" id="cancel" onclick="cancelUpdate();" value="Cancelar">
+                
+        <input class="form-control" id="listagem" type="submit" onclick="javascript: execRetrieve();" value="Listagem">
+        <input class="form-control" id="inserir" type="submit" onclick="execCreate();" value="Inserir">
+        <input class="form-control" id="confirmar" type="submit" onclick="confirmUpdate();" value="Confirmar">
+        <input class="form-control" type="submit" id="cancel" onclick="cancelUpdate();" value="Cancelar">
         <!--<input type="submit" onclick="execDelete();" value="Excluir">-->
 
     </div>
@@ -60,9 +63,9 @@
         
             
     </div>
-
+</div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="js/scripts.js"></script>
-    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
