@@ -94,7 +94,7 @@ function execCreate() {
 
 function limpaForm(){
     document.getElementById('cadastro').reset();
-    $('img#inserir-foto')[0].src = "";
+    $('img#inserir-foto')[0].src = "imagens/inserir-img.png";
 }
 
 function execUpdate(id){
