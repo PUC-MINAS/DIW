@@ -38,10 +38,25 @@ function execRetrieve() {
             tabelaHTML += '</tbody></table>';
 
             // Inserção do código HTML na DIV
+            
+            
             $('#div_listagem').html(tabelaHTML);
+            
+            
         }
     });
 
+}
+
+
+function telaPeq () {
+    var tam = $(window).width();
+    if (tam < '650'){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 // Função para executar o Delete do CRUD
