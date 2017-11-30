@@ -12,7 +12,7 @@ function execRetrieve() {
             var id, nome, sexo, cidade, site, data_nascimento, img_url;
             // Montagem da tabela HTML
 
-            tabelaHTML = '<table class="table"><thead><tr><th>#</th><th>Imagem</th></th><th>Nome</th><th>Sexo</th><th>Cidade</th><th>Site</th><th>Data de Nascimento</th></tr></thead><tbody>';
+            tabelaHTML = '<table class="table"><thead><tr><th>#</th><th>Imagem</th></th><th>Nome</th><th>Sexo</th><th>Cidade</th><th>Site</th><th>Data de Nascimento</th><th></th><th></th></th></tr></thead><tbody>';
 
             for (var i = 0; i < dados.restify.rows.length; i++) {
                 id = dados.restify.rows[i].values.id.value;
@@ -31,8 +31,8 @@ function execRetrieve() {
                 tabelaHTML += '<td id="'+ id +'cidade">'+ cidade +'</td>';
                 tabelaHTML += '<td id="'+ id +'site"><a href="'+ site +'">Site</a></td>';
                 tabelaHTML += '<td id="'+ id +'data">'+ data_nascimento +'</td>';
-                tabelaHTML += '<td><button onclick="execUpdate('+ id +');">Alterar</button></td>';
-                tabelaHTML += '<td><button onclick="execDelete('+ id +');">Excluir</button></td>';
+                tabelaHTML += '<td><button class="btn btn-warning" onclick="execUpdate('+ id +');">Alterar</button></td>';
+                tabelaHTML += '<td><button class="btn btn-danger" onclick="execDelete('+ id +');">Excluir</button></td>';
                 tabelaHTML += '</tr>';
             }
             tabelaHTML += '</tbody></table>';
@@ -56,6 +56,7 @@ function execDelete(id) {
 
                 // Recarrega listagem
                 execRetrieve();
+                limpaForm();
             }
         });
     }
@@ -85,10 +86,15 @@ function execCreate() {
 
             // Recarrega listagem
             execRetrieve();
-            document.getElementById('cadastro').reset();
+            limpaForm();
         }
 
     });
+}
+
+function limpaForm(){
+    document.getElementById('cadastro').reset();
+    $('img#inserir-foto')[0].src = "";
 }
 
 function execUpdate(id){
@@ -110,6 +116,7 @@ function execUpdate(id){
     $('input#inserir').css("visibility","hidden");
     $('input#confirmar').css("visibility","visible");
     $('input#cancel').css("visibility","visible");
+    takeImg();
 
 }
 
@@ -134,6 +141,7 @@ function confirmUpdate(){
         success: function () {
             alert("Registro atualizado com sucesso!");
             execRetrieve();
+            limpaForm();
             
         }
     });
@@ -156,6 +164,7 @@ function cancelUpdate () {
     $('input#inserir').css("visibility","visible");
     $('input#confirmar').css("visibility","hidden");
     $('input#cancel').css("visibility","hidden");
+    limpaForm();
 }
 
 function formatarData(data) {
@@ -168,4 +177,8 @@ function formatarData(data) {
     if (dia.length < 2) dia = '0' + dia;
 
     return [ano, mes, dia].join('-');
+}
+
+function takeImg () {
+    $('img#inserir-foto')[0].src = $('#foto_url').val();
 }
