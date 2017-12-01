@@ -9,7 +9,38 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body onload="tamBotoes();">
+<script src="js/fbapi.js"></script>
 <div class="container">
+        
+    <nav class="navbar navbar-dark bg-inverse">
+        <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                    <fb:login-button scope="public_profile, email" onlogin="checkLoginState();">
+                    </fb:login-button>
+            </li>
+            <li class="nav-item">
+                <div id="perfil">
+                    <a id="perfil-link" href="">
+                        <img id="perfil-img" src="" alt="" class="img-circle">
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="" id="perfil-link">
+                    <h3 id="perfil-name"></h3>
+                </a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>-->
+        </ul>
+    </nav>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form id="cadastro" class="form-horizontal">
@@ -30,7 +61,7 @@
                         </p>
                         <div class="row linha-radio">
                             
-                            <div class="col-md-6 col-sm-2 col-sm-offset-4 col-xs-6">
+                            <div class="col-md-6 col-sm-2 col-xs-6">
                                 <input type="radio" name="sexo" id="sexo" value="Masculino">
                                 <label for="sexo">Masculino</label>
                             </div>

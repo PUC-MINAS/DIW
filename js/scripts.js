@@ -25,7 +25,7 @@ function execRetrieve() {
 
                 tabelaHTML += '<tr>';
                 tabelaHTML += '<td id="'+ id +'id">'+ id +'</td>';
-                tabelaHTML += '<td id="'+ id +'img"><img class="foto_perfil" src="'+ img_url +'"></td>'
+                tabelaHTML += '<td id="'+ id +'img"><img class="foto_perfil img-circle" src="'+ img_url +'"></td>'
                 tabelaHTML += '<td id="'+ id +'nome">'+ nome +'</td>';
                 tabelaHTML += '<td id="'+ id +'sexo">'+ sexo +'</td>';
                 tabelaHTML += '<td id="'+ id +'cidade">'+ cidade +'</td>';
