@@ -6,6 +6,7 @@ input#confirmar, input#cancel {
 
 .foto_perfil {
     height: 40px;
+    width: 40px;
 }
 img#inserir-foto{
     /*width: 100px;
