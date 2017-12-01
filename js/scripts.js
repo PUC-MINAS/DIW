@@ -59,6 +59,43 @@ function telaPeq () {
     }
 }
 
+function tamBotoes() {
+    var tam = $(window).width();
+    //alert("aplicou - tam = " + tam);
+    if (tam < 360) {
+        $('#listagem').addClass('btn-block');
+        $('#inserir').addClass('btn-block');
+        $('#confirmar').addClass('btn-block');
+        $('#cancel').addClass('btn-block');
+
+    }
+    else {
+        $('#listagem').removeClass('btn-block');
+        $('#inserir').removeClass('btn-block');
+        $('#confirmar').removeClass('btn-block');
+        $('#cancel').removeClass('btn-block');
+    }
+
+    $(window).resize(function(){
+        var tam = $(window).width();
+        //alert("aplicou - tam = " + tam);
+        if (tam < 360) {
+            $('#listagem').addClass('btn-block');
+            $('#inserir').addClass('btn-block');
+            $('#confirmar').addClass('btn-block');
+            $('#cancel').addClass('btn-block');
+    
+        }
+        else {
+            $('#listagem').removeClass('btn-block');
+            $('#inserir').removeClass('btn-block');
+            $('#confirmar').removeClass('btn-block');
+            $('#cancel').removeClass('btn-block');
+        }
+    });
+    
+}
+
 // Função para executar o Delete do CRUD
 function execDelete(id) {
     // Confirma exclusão
@@ -131,6 +168,7 @@ function execUpdate(id){
     $('input#inserir').css("visibility","hidden");
     $('input#confirmar').css("visibility","visible");
     $('input#cancel').css("visibility","visible");
+
     takeImg();
 
 }
@@ -179,6 +217,7 @@ function cancelUpdate () {
     $('input#inserir').css("visibility","visible");
     $('input#confirmar').css("visibility","hidden");
     $('input#cancel').css("visibility","hidden");
+
     limpaForm();
 }
 
