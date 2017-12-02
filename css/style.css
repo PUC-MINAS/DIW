@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+#div_listagem {
+    margin-top: 50px;
+}
+
+#formulario {
+    border: 1px solid rgb(220, 220, 220);;
+    padding: 10px;
+    background-color: rgb(245, 245, 245);
+    margin-top: 20px;
+}
+
 input#confirmar, input#cancel {
     visibility: hidden;
 }
