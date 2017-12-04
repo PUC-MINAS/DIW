@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#centro {
+    padding-top: 50px;
+}
+
+footer {
+    margin-top: 50px;
+}
+
 #div_listagem {
     margin-top: 50px;
 }
