@@ -122,7 +122,6 @@ function execCreate() {
     var data_nascimento = $('#data_nascimento').val();
     var img_url = $('#foto_url').val();
     var sexo = $('input[name="sexo"]:checked').val();
-    alert('Nome: '+nome+'\nCidade: '+cidade+'\nsite: '+site_url);
     
     $.ajax({
         url: url_WS,
