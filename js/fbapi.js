@@ -73,8 +73,7 @@ function testAPI() {
         $('#perfil-img').attr('src',user.picture.data.url);
         $('#perfil-link').attr('href', user.link);
         $('#perfil-name')[0].innerHTML = user.name;
-        document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
-        $('#face').css("display","none");
+        
+        $('li#face').css("display","none");
     });
 }

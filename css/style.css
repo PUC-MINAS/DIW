@@ -71,3 +71,11 @@ div#login {
 div.linha-radio {
     text-align: center;
 }
+
+.navbar-inverse {
+    position: fixed;
+}
+
+#nav {
+    position: relative;
+}
